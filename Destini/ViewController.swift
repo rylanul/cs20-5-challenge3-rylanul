@@ -28,7 +28,92 @@ class ViewController: UIViewController {
     let story5 = "As you smash through the guardrail and careen towards the jagged rocks below you reflect on the dubious wisdom of stabbing someone while they are driving a car you are in."
     let story6 = "You bond with the murderer while crooning verses of \"Can you feel the love tonight\". He drops you off at the next town. Before you go he asks you if you know any good places to dump bodies. You reply: \"Try the pier.\""
     
+    var storyIndex: Int = 1
+    var buttonPressed: Int = 1
     
+    
+    //the story result when the someone picks a button 
+    func storyTitle() {
+        switch storyIndex{
+        case 1:
+            storyTextView.text = story1
+            
+        case 2:
+            storyTextView.text = story2
+            
+        case 3:
+            storyTextView.text = story3
+            
+        case 4:
+            storyTextView.text = story4
+            
+        case 5:
+            storyTextView.text = story5
+            
+        default:
+            storyTextView.text = story6
+        }
+    
+    }
+    
+    //the result of pressing the top button
+    func highButton(){
+        switch storyIndex{
+        case 1:
+            storyIndex += 2
+            buttonPressed += 2
+        
+        case 2:
+            storyIndex += 1
+            buttonPressed += 1
+            
+        case 3:
+            storyIndex += 3
+            buttonPressed += 3
+        
+        default:
+            storyIndex = 1
+            buttonPressed = 1
+        }
+    }
+    //the result of pressing the bottom button
+    func lowButton(){
+        switch storyIndex{
+        case 1:
+            storyIndex += 2
+            buttonPressed += 2
+            
+        case 2:
+            storyIndex += 1
+            buttonPressed += 1
+            
+        case 3:
+            storyIndex += 2
+            buttonPressed += 2
+            
+        default:
+            storyIndex = 1
+            buttonPressed = 1
+        }
+    }
+    //reset button when you get to the end of the story
+    func buttonJ() {
+        switch buttonPressed{
+        case 1:
+            topButton.setTitle(answer1a, for: .normal)
+            bottomButton.setTitle(answer1b, for: .normal)
+        case 2:
+            topButton.setTitle(answer2a, for: .normal)
+            bottomButton.setTitle(answer2b, for: .normal)
+        case 3:
+            topButton.setTitle(answer3a, for: .normal)
+            bottomButton.setTitle(answer3b, for: .normal)
+        default:
+            topButton.setTitle("Try Again", for: .normal)
+            bottomButton.setTitle("try Again", for: .normal)
+        }
+        
+    }
     // UI Elements linked to the storyboard
     @IBOutlet weak var topButton: UIButton!         // Has TAG = 1
     @IBOutlet weak var bottomButton: UIButton!      // Has TAG = 2
@@ -50,6 +135,17 @@ class ViewController: UIViewController {
     
     // User presses one of the buttons
     @IBAction func buttonPressed(_ sender: UIButton) {
+        if sender.tag == 1{
+            highButton()
+            storyTitle()
+            buttonJ()
+        }
+            
+        else if sender.tag == 2{
+            lowButton()
+            buttonJ()
+            storyTitle()
+        }
     
         // TODO Step 4: Write an IF-Statement to update the views
                 
